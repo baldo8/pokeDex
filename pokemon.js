@@ -37,17 +37,23 @@ function displayPokemons(pokemon) {
     const pokemonID = pokemon.url.split("/")[6];
     const listItem = document.createElement("div");
     listItem.className = "list-item";
+    let imgSrc = '';
+    if (pokemonID >= 650 && pokemonID <= 898) {
+      imgSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonID}.png`;
+    } else {
+      imgSrc = `https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg`;
+    }
     listItem.innerHTML = `
-        <div class="number-wrap">
-            <p class="caption-fonts">#${pokemonID}</p>
-        </div>
-        <div class="img-wrap">
-            <img src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg" alt="${pokemon.name}" />
-        </div>
-        <div class="name-wrap">
-            <p class="body3-fonts">#${pokemon.name}</p>
-        </div>
-    `;
+    <div class="number-wrap">
+      <p class="caption-fonts">#${pokemonID}</p>
+    </div>
+    <div class="img-wrap">
+      <img src="${imgSrc}" alt="${pokemon.name}" />
+    </div>
+    <div class="name-wrap">
+      <p class="body3-fonts">#${pokemon.name}</p>
+    </div>
+  `;
 
     listItem.addEventListener("click", async () => {
       const success = await fetchPokemonDataBeforeRedirect(pokemonID);
